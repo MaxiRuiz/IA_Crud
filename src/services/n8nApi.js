@@ -3,8 +3,8 @@
 
 // URL real de tu Webhook de n8n. ¡REEMPLAZA ESTO!
 
-// const N8N_WEBHOOK_URL = "http://localhost:5678/webhook-test/crud-ia"; 
-  const N8N_WEBHOOK_URL = "http://localhost:5678/webhook/crud-ia";
+ const N8N_WEBHOOK_URL = "http://localhost:5678/webhook-test/crud-ia"; 
+//  const N8N_WEBHOOK_URL = "http://localhost:5678/webhook/crud-ia";
 /**
  * Función para enviar el prompt (solicitud conversacional) a n8n.
  * @param {string} promptText - El texto ingresado por el usuario (ej: "Selecciona todos los clientes").

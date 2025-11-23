@@ -1,17 +1,23 @@
 /* src/assets/styles.css */
 
-/* Variables y Estilos Globales (Estética Moderna) */
+/* Variables y Estilos Globales (Modo Claro - Estética Moderna y Limpia) */
 :root {
-    --bg-primary: #0F172A; /* Azul Oscuro (Deep Navy) */
-    --bg-card: #1E293B; /* Tono para cards y contenedores */
-    --bg-input: #2D3748; /* Tono para input y focus */
-    --text-light: #E2E8F0;
-    --text-muted: #94A3B8;
-    --accent-blue: #3B82F6; /* Azul Primario (Aura) */
+    --bg-primary: #F8FAFC;     /* Fondo principal muy claro (casi blanco) */
+    --bg-card: #FFFFFF;        /* Tarjetas y contenedores blancos puros */
+    --bg-input: #F1F5F9;       /* Fondo de inputs y áreas de texto */
+    --text-primary: #1E293B;   /* Texto principal oscuro */
+    --text-muted: #64748B;     /* Texto secundario / placeholders */
+    --text-light: #94A3B8;     /* Texto más suave */
+    --accent-blue: #3B82F6;    /* Azul primario vibrante (mismo que antes) */
+    --accent-blue-dark: #2563EB;
     --success-green: #10B981;
     --error-red: #EF4444;
-    --border-subtle: #334155;
-    --radius-default: 8px;
+    --border-subtle: #E2E8F0;  /* Bordes suaves en modo claro */
+    --border-strong: #CBD5E1;  /* Bordes más marcados cuando sea necesario */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --radius-default: 12px;
 }
 
 /* Reset Básico y Estilos del Cuerpo */
@@ -24,11 +30,10 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-primary);
-    color: var(--text-light);
+    color: var(--text-primary);
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* Suavizado de fuente */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -47,53 +52,57 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .header h1 {
     font-size: 1.6em;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--accent-blue);
 }
 
 .settings-btn {
     background-color: transparent;
-    color: var(--text-light);
-    border: 1px solid var(--border-subtle);
-    padding: 10px 18px;
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-strong);
+    padding: 10px 20px;
     border-radius: var(--radius-default);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
     font-weight: 500;
 }
 
 .settings-btn:hover {
     background-color: var(--bg-input);
     border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    transform: translateY(-1px);
 }
 
 /* 2. Área Central (Tabla) */
 .main-content {
     flex-grow: 1;
     padding: 30px;
-    overflow-y: auto; /* Permite el scroll en el contenido principal */
+    overflow-y: auto;
+    background-color: var(--bg-primary);
 }
 
 .data-table-container {
     width: 100%;
     background-color: var(--bg-card);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-default);
     overflow: hidden;
     border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-lg);
 }
 
 .table-title {
-    padding: 15px 20px;
+    padding: 18px 24px;
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.2em;
     border-bottom: 1px solid var(--border-subtle);
-    color: var(--text-light);
-    background-color: #2D3748;
+    color: var(--text-primary);
+    background-color: #F8FAFC;
 }
 
 .result-table {
@@ -102,140 +111,148 @@ body {
     font-size: 0.95em;
 }
 
-.result-table th, .result-table td {
-    padding: 14px 20px;
+.result-table th,
+.result-table td {
+    padding: 16px 20px;
     text-align: left;
     border-bottom: 1px solid var(--border-subtle);
-    color: var(--text-light);
+    color: var(--text-primary);
 }
 
 .result-table th {
-    background-color: #334155;
+    background-color: #F1F5F9;
     color: var(--accent-blue);
     font-weight: 700;
     text-transform: capitalize;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 
 .result-table tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #FAFBFD;
 }
 
 .result-table tbody tr:hover {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(59, 130, 246, 0.08);
+    transition: background-color 0.2s;
 }
 
 /* 3. Input Bar (Footer) */
 .input-bar {
-    padding: 20px 30px;
+    padding: 24px 30px;
     border-top: 1px solid var(--border-subtle);
     background-color: var(--bg-card);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    position: sticky; 
+    gap: 16px;
+    position: sticky;
     bottom: 0;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
 }
 
 .status-bar {
-    padding: 10px 15px;
+    padding: 12px 16px;
     border-radius: var(--radius-default);
     font-size: 0.9em;
     font-weight: 500;
 }
 
 .status-success {
-    background-color: rgba(16, 185, 129, 0.15);
+    background-color: rgba(16, 185, 129, 0.12);
     color: var(--success-green);
-    border: 1px solid var(--success-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .status-error {
-    background-color: rgba(239, 68, 68, 0.15);
+    background-color: rgba(239, 68, 68, 0.12);
     color: var(--error-red);
-    border: 1px solid var(--error-red);
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .status-loading {
-    background-color: rgba(59, 130, 246, 0.15);
+    background-color: rgba(59, 130, 246, 0.12);
     color: var(--accent-blue);
-    border: 1px solid var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .input-area {
     display: flex;
-    align-items: flex-end; 
-    gap: 15px;
+    align-items: flex-end;
+    gap: 16px;
 }
 
 .input-bar textarea {
     flex-grow: 1;
-    padding: 15px;
+    padding: 16px;
     border: 2px solid var(--border-subtle);
     border-radius: var(--radius-default);
     background-color: var(--bg-input);
-    color: var(--text-light);
-    resize: vertical; 
-    min-height: 80px; 
+    color: var(--text-primary);
+    resize: vertical;
+    min-height: 80px;
     max-height: 200px;
-    box-sizing: border-box;
     font-size: 1em;
-    line-height: 1.4;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.5;
+    transition: all 0.25s ease;
 }
 
 .input-bar textarea:focus {
     border-color: var(--accent-blue);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    background-color: white;
 }
 
 .input-bar button {
     background-color: var(--accent-blue);
     color: white;
     border: none;
-    padding: 15px 25px;
+    padding: 0 28px;
     border-radius: var(--radius-default);
     cursor: pointer;
     font-size: 1.1em;
     font-weight: 600;
-    height: 50px; 
+    height: 56px;
     display: flex;
     align-items: center;
-    transition: background-color 0.3s;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
 }
 
 .input-bar button:hover {
-    background-color: #2563EB;
+    background-color: var(--accent-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(59, 130, 246, 0.25);
 }
 
-
-/* --- Historial de Interacciones --- */
+/* --- Historial de Interacciones (corregido y adaptado al modo claro) --- */
 .history-panel {
-    background-color: var(--color-background-secondary);
-    border-top: 1px solid var(--color-border);
-    padding: 15px 20px;
-    grid-column: 1 / 3; /* Ocupa el ancho completo */
-    border-radius: 0 0 10px 10px;
-    max-height: 250px;
-    overflow-y: auto; /* Permite desplazamiento vertical */
+    background-color: #F8FAFC;
+    border-top: 1px solid var(--border-subtle);
+    padding: 20px;
+    border-radius: 0 0 var(--radius-default) var(--radius-default);
+    max-height: 280px;
+    overflow-y: auto;
 }
 
 .history-panel h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: var(--color-text-header);
-    font-size: 1.1em;
-    border-bottom: 1px dashed var(--color-border);
-    padding-bottom: 5px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    font-size: 1.15em;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 8px;
+    display: inline-block;
 }
 
 .history-item {
     display: flex;
-    justify-content: space-between; /* Alinea prompt a la izquierda y SQL a la derecha */
+    justify-content: space-between;
     align-items: flex-start;
-    padding: 10px 0;
-    border-bottom: 1px dotted var(--color-border);
+    padding: 14px 0;
+    border-bottom: 1px dotted var(--border-subtle);
 }
 
 .history-item:last-child {
@@ -243,32 +260,35 @@ body {
 }
 
 .history-prompt {
-    flex: 1; /* Ocupa la mayor parte del espacio */
-    padding-right: 20px;
-    font-size: 0.9em;
-    color: var(--color-text-subtle);
+    flex: 1;
+    padding-right: 24px;
+    font-size: 0.94em;
+    color: var(--text-muted);
 }
 
 .history-prompt p {
-    margin-top: 5px;
-    margin-bottom: 0;
+    margin-top: 6px;
     font-style: italic;
-    color: var(--color-text);
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
 .history-sql {
-    flex: 1; /* Ocupa la otra mitad */
-    max-width: 45%; /* Limita el ancho del SQL */
-    font-size: 0.8em;
-    color: var(--color-accent-green); /* Color para el código */
+    flex: 1;
+    max-width: 48%;
+    font-size: 0.82em;
+    color: #16A34A;
+    font-family: 'Consolas', 'Monaco', monospace;
 }
 
 .history-sql pre {
-    background-color: #333; /* Fondo oscuro para el código */
-    padding: 5px 8px;
-    border-radius: 4px;
-    overflow-x: auto; /* Permite scroll horizontal para SQL largo */
-    color: #aaffaa; /* Texto verde claro para el código */
-    margin-top: 5px;
-    margin-bottom: 0;
+    background-color: #F0FDF4;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #BBF7D0;
+    overflow-x: auto;
+    color: #166534;
+    margin: 8px 0 0;
+    white-space: pre-wrap;
+    word-break: break-all;
 }

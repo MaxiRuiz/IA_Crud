@@ -9,6 +9,7 @@ export const TABLE_COLUMNS = [
     { key: 'id', title: 'ID' },
     { key: 'apellido', title: 'Apellido' },
     { key: 'nombre', title: 'Nombre' },
+    { key: 'fecha_nacimiento', title: 'Fecha Nacimiento' },
     { key: 'email', title: 'Email' },
     { key: 'domicilio', title: 'Domicilio' },
     { key: 'ciudad', title: 'Ciudad' },
@@ -38,7 +39,7 @@ export const HistoryItem = {
  data: [Array de objetos DataRow]
 */
 export const INITIAL_STATE = {
-    // CORRECCIÓN 1: 'data' DEBE ser un array vacío [].
+    
     data: [], 
     
     // CORRECCIÓN 2: Usar 'status' en lugar de 'estado' para coincidir con useDataState.js.

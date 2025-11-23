@@ -74,7 +74,7 @@ const Console = () => {
 
             </div>
 
-            {/* 4. PANEL DE HISTORIAL (Nueva sección al final) */}
+            {/* 4. PANEL DE HISTORIAL  */}
             <HistoryPanel history={history} />
 
         </div>

@@ -39,14 +39,16 @@ export const useDataState = () => {
         }));
 
         // 3. Llamar al servicio de n8n
-        const result = await sendAIAssistantRequest(promptText);
+        const result = await sendAIAssistantRequest(promptText);    //  Recibe el mensaje de n8n y lo asigna a result
 
         // --- Punto de Debug ---
         console.log("--- DATOS RECIBIDOS DE N8N ---");
-        console.log("Éxito:", result.success);
+        console.log("Éxito:", result.success);  // Variable Booleana
+        console.log("Estado consulta:", result.estado);  // Resultado de la respuesta de la IA
         console.log("Mensaje:", result.message);
         console.log("Datos para la tabla:", result.data);
-        console.log("Consulta SQL (esperada):", result.sqlQuery); // Revisa si n8n te envía la consulta SQL aquí
+        console.log("Consulta SQL (esperada):", result.sqlQuery);
+        console.log("RESPUESTA COMPLETA DE N8N:", JSON.stringify(result, null, 2));
         console.log("------------------------------");
 
         // 4. Obtener la consulta SQL generada.
@@ -55,15 +57,26 @@ export const useDataState = () => {
 
 
         // 5. Actualizar el estado según el resultado
-        if (result.success) {
 
-            // 5a. Crear el nuevo ítem de historial
-            const newHistoryItem = {
-                id: Date.now(),
-                timestamp: new Date().toLocaleTimeString(),
-                prompt: promptText,
-                sql: generatedSQL,
-            };
+        if (result.success) {
+            // Lógica adicional para manejar el estado  "INCOMP"
+            if (result.estado === 'INCOMP') {
+                // Actualizar el estado interno con 'warning'
+                setState(prevState => ({
+                    ...prevState,
+                    status: 'warning',
+                    message: result.message,
+                }));
+            } else {
+
+                // 5a. Crear el nuevo ítem de historial
+                const newHistoryItem = {
+                    id: Date.now(),
+                    timestamp: new Date().toLocaleTimeString(),
+                    prompt: promptText,
+                    sql: generatedSQL,
+                };
+            
 
             // 5b. Actualizar el estado con los nuevos datos y el historial
             setState(prevState => ({
@@ -77,6 +90,7 @@ export const useDataState = () => {
                 // CRÍTICO: Añadir el nuevo ítem al principio del historial y limitar a 10
                 history: [newHistoryItem, ...prevState.history].slice(0, 10),
             }));
+        }
 
         } else {
             // 5c. Manejo de error - Mantiene el historial y datos existentes
