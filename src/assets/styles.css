@@ -176,6 +176,12 @@ body {
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
+.status-warning {
+    background-color: rgba(215, 224, 79, 0.12);
+    color: var(--accent-yellow);
+    border: 1px solid rgba(146, 148, 39, 0.3);
+}
+
 .input-area {
     display: flex;
     align-items: flex-end;

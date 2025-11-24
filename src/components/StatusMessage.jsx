@@ -13,6 +13,8 @@ const StatusMessage = ({ status, message }) => {
                 return 'status-loading';
             case 'success':
                 return 'status-success';
+            case 'warning':
+                return 'status-warning';
             case 'error':
                 return 'status-error';
             default:

@@ -1,6 +1,6 @@
 // src/Console/Console.jsx
 //  El componente Console.jsx se usa para probar la DataTable con los datos de ejemplo.
-//  Ahora Conecta el hook (useDataState) con el DataTable, el PromptInput y el StatusMessage.
+//  Conecta el hook (useDataState) con el DataTable, el PromptInput y el StatusMessage.
 
 
 import React from 'react';

@@ -58,65 +58,50 @@ export const useDataState = () => {
 
         // 5. Actualizar el estado según el resultado
 
-        switch (result.estado) {
-            case "OK":
-
-                // Crea el nuevo ítem de historial
-                const newHistoryItem = {
-                    id: Date.now(),
-                    timestamp: new Date().toLocaleTimeString(),
-                    prompt: promptText,
-                    sql: generatedSQL,
-                };
-
-                // Actualiza el estado con los nuevos datos y el historial
-                setState(prevState => ({
-                    ...prevState, // Mantiene todas las propiedades anteriores (incluyendo history)
-
-                    // Si hay data, la usa; si no (ej: INSERT), mantiene la data previa
-                    data: result.data && result.data.length > 0 ? result.data : prevState.data,
-                    status: 'success',
-                    message: result.message,
-
-                    // Añade el nuevo ítem al principio del historial y limitar a 10
-                    history: [newHistoryItem, ...prevState.history].slice(0, 10),
-                }));
-
-                break;
-
-            case "INCOMP":
-
+        if (result.success) {
+            // Lógica adicional para manejar el estado  "INCOMP"
+            if (result.estado === 'INCOMP') {
                 // Actualizar el estado interno con 'warning'
                 setState(prevState => ({
                     ...prevState,
                     status: 'warning',
                     message: result.message,
                 }));
-                break;
+            } else {
 
-            case "ERRSQL":
-                // Actualizar el estado interno con 'error'
-                setState(prevState => ({
-                    ...prevState,
-                    status: 'error',
-                    message: result.message,
-                }));
-                break;
+                // 5a. Crear el nuevo ítem de historial
+                const newHistoryItem = {
+                    id: Date.now(),
+                    timestamp: new Date().toLocaleTimeString(),
+                    prompt: promptText,
+                    sql: generatedSQL,
+                };
+            
 
+            // 5b. Actualizar el estado con los nuevos datos y el historial
+            setState(prevState => ({
+                ...prevState, // Mantiene todas las propiedades anteriores (incluyendo history)
 
-            default:
+                // Si hay data, la usa; si no (ej: INSERT), mantiene la data previa
+                data: result.data && result.data.length > 0 ? result.data : prevState.data,
+                status: 'success',
+                message: result.message,
 
-                // Manejo de error - Mantiene el historial y datos existentes
-                setState(prevState => ({
-                    ...prevState,
-                    status: 'error',
-                    message: result.message || 'Error desconocido en la conexión o en el flujo n8n.',
-                    history: Array.isArray(prevState.history) ? prevState.history : []
-
-                }));
-                break;
+                // CRÍTICO: Añadir el nuevo ítem al principio del historial y limitar a 10
+                history: [newHistoryItem, ...prevState.history].slice(0, 10),
+            }));
         }
 
+        } else {
+            // 5c. Manejo de error - Mantiene el historial y datos existentes
+            setState(prevState => ({
+                ...prevState,
+                status: 'error',
+                message: result.message || 'Error desconocido en la conexión o en el flujo n8n.',
+                history: Array.isArray(prevState.history) ? prevState.history : []
+
+            }));
+        }
     };
 
     // El hook retorna el estado actual y la función para cambiarlo
@@ -124,7 +109,7 @@ export const useDataState = () => {
         data: state.data,
         status: state.status,
         message: state.message,
-        // Garantiza que 'history' siempre devuelva un array (por seguridad)
+        // Garantiza que 'history' siempre devuelva un array (Solución de seguridad)
         history: Array.isArray(state.history) ? state.history : [],
         handlePromptSubmit,
     };
